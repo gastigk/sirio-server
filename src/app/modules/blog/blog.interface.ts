@@ -1,4 +1,4 @@
-export interface blogDataType {
+export interface BlogDataType {
   title: string;
   blogDetails: string;
   img: string;

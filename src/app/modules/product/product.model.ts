@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ProductType, offerProductType } from "./product.interface";
+import { ProductType, OfferProductType } from "./product.interface";
 
 const productSchema = new Schema<ProductType>({
   categoryName: { type: String, required: true, trim: true },
@@ -17,7 +17,8 @@ const productSchema = new Schema<ProductType>({
   rettings: { type: [Number], required: true },
   productStatus: { type: String, required: true },
 });
-const OfferproductSchema = new Schema<offerProductType>({
+
+const OfferproductSchema = new Schema<OfferProductType>({
   productId: { type: String, required: true, trim: true },
   oldPrice: { type: Number, required: true, trim: true },
   price: { type: Number, required: true, trim: true },
@@ -29,4 +30,7 @@ const OfferproductSchema = new Schema<offerProductType>({
 });
 
 export const Product = model<ProductType>("Product", productSchema);
-export const OffProduct = model<offerProductType>("OffProduct", OfferproductSchema);
+export const OffProduct = model<OfferProductType>(
+  "OffProduct",
+  OfferproductSchema
+);

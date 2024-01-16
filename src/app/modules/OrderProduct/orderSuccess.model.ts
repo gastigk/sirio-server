@@ -1,10 +1,14 @@
 import { model, Schema } from "mongoose";
-import { CanceOrderDataType, OrderDataType, ShipMentStatus } from "./orderSuccess.interface";
+import {
+  CanceOrderDataType,
+  OrderDataType,
+  ShipMentStatus,
+} from "./orderSuccess.interface";
 
 const ShipMentStatusScema = new Schema<ShipMentStatus>({
-  orderStatusDate:String,
+  orderStatusDate: String,
   shipmentStatus: String,
-})  
+});
 
 const orderScema = new Schema<OrderDataType>({
   buyerEmail: String,
@@ -21,8 +25,9 @@ const orderScema = new Schema<OrderDataType>({
   paymentId: String,
   shipmentStatus: String,
   orderId: String,
-  shipmentStatusArray:{type:[ShipMentStatusScema] ||  undefined}
+  shipmentStatusArray: { type: [ShipMentStatusScema] || undefined },
 });
+
 const cancelOrderScema = new Schema<CanceOrderDataType>({
   buyerEmail: String,
   EmailAddress: String,
@@ -34,9 +39,11 @@ const cancelOrderScema = new Schema<CanceOrderDataType>({
   paymentId: String,
   orderId: String,
   returnStatus: String,
-  orderProduct:Object,
+  orderProduct: Object,
 });
 
-
 export const Order = model<OrderDataType>("Order", orderScema);
-export const CancelOrder = model<OrderDataType>("CancelOrder", cancelOrderScema);
+export const CancelOrder = model<CanceOrderDataType>(
+  "CancelOrder",
+  cancelOrderScema
+);

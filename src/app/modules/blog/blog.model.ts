@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { blogDataType, CommentType } from "./blog.interface";
+import { BlogDataType, CommentType } from "./blog.interface";
 
-const blogScema = new Schema<blogDataType>({
+const blogScema = new Schema<BlogDataType>({
   title: {
     type: String,
     required: true,
@@ -54,5 +54,5 @@ const commentSchema = new Schema<CommentType>({
   title: { type: String, trim: true },
 });
 
-export const Blog = model<blogDataType>("Blog", blogScema);
+export const Blog = model<BlogDataType>("Blog", blogScema);
 export const Comment = model<CommentType>("Comment", commentSchema);

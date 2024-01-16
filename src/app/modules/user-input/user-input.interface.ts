@@ -1,5 +1,5 @@
 export interface UserReviewType {
-  productName:string;
+  productName: string;
   review: string;
   name: string;
   email: string;
@@ -7,16 +7,15 @@ export interface UserReviewType {
   productId: string;
   categoryName: string;
   retting: number;
-  img:string;
+  img: string;
 }
-
 
 export interface UserContactType {
   name: string;
   email: string;
   phone: string;
   message: string;
-  date:string;
+  date: string;
 }
 export interface UserReturnRequestType {
   name: string;
@@ -24,7 +23,7 @@ export interface UserReturnRequestType {
   phone: string;
   message: string;
   productId: string;
-  date:string
+  date: string;
   paymentId: string;
   productName: string;
 }

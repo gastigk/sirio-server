@@ -17,7 +17,7 @@ const userSchema = new Schema<TeamMember>({
   phone: { type: String, required: true, trim: true },
   email: { type: String, required: true, trim: true },
   location: { type: String, required: true, trim: true },
-  skills: [skillSchema], // skills is an array of Skill objects
+  skills: [skillSchema],
   facebook: { type: String, trim: true },
   twitter: { type: String, trim: true },
   instagram: { type: String, trim: true },

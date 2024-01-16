@@ -28,9 +28,9 @@ export interface CanceOrderDataType {
   Phone: string;
   productId: string;
   productName: string;
-  returnAmount:number;
+  returnAmount: number;
   paymentId: string;
   orderId?: string;
   returnStatus: string;
-  orderProduct:any;
+  orderProduct: any;
 }

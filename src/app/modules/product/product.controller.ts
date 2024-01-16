@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { OffProduct, Product } from "./product.model";
 import { Reviews } from "../user-input/user-input.model";
 import { Order } from "../OrderProduct/orderSuccess.model";
-import { formattedProductsType } from "./product.interface";
+import { FormattedProductsType } from "./product.interface";
 import { UserReviewType } from "../user-input/user-input.interface";
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -55,8 +55,6 @@ export const allProduct = async (req: Request, res: Response) => {
     res.status(500).send({ message: "Error fetching products" });
   }
 };
-
-
 
 export const getSinglePorduct = async (req: Request, res: Response) => {
   try {
@@ -243,7 +241,7 @@ export const getFiltredPorduct = async (req: Request, res: Response) => {
 
 export const OfferProduct = async (req: Request, res: Response) => {
   try {
-    const product = await Product.find({offer:true}).sort({ date: -1 });
+    const product = await Product.find({ offer: true }).sort({ date: -1 });
     res.status(200).send(product);
   } catch (e) {
     res.status(500).send({ message: "Error fetching products" });
@@ -319,7 +317,7 @@ export const bestSellingProduct = async (req: Request, res: Response) => {
     ];
     const bestSoldProducts = await Order.aggregate(pipeline);
 
-    const formattedProducts: formattedProductsType[] = bestSoldProducts.map(
+    const formattedProducts: FormattedProductsType[] = bestSoldProducts.map(
       (product) => {
         const productId: string = product.productIds[0];
         return {
@@ -511,13 +509,15 @@ export const searchOfferProducts = async (req: Request, res: Response) => {
   }
 };
 
+// product search from admin pannel
 
-// product search from admin pannel 
-
-export const getFiltredPorductFromAdmin = async (req: Request, res: Response) => {
+export const getFiltredPorductFromAdmin = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const searchQuery = req.query.search;
-    
+
     let keywordArray: any = [];
 
     if (searchQuery && typeof searchQuery === "string") {
@@ -544,7 +544,6 @@ export const getFiltredPorductFromAdmin = async (req: Request, res: Response) =>
   }
 };
 
-
 // update offer banner
 
 export const updateOfferBannerImage = async (req: Request, res: Response) => {
@@ -564,4 +563,3 @@ export const updateOfferBannerImage = async (req: Request, res: Response) => {
     res.send({ message: "custom error" });
   }
 };
-

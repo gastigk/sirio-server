@@ -1,5 +1,9 @@
 import { Schema, model } from "mongoose";
-import { UserContactType, UserReturnRequestType, UserReviewType } from "./user-input.interface";
+import {
+  UserContactType,
+  UserReturnRequestType,
+  UserReviewType,
+} from "./user-input.interface";
 
 const reviewSchema = new Schema<UserReviewType>({
   productName: { type: String, required: true, trim: true },
@@ -10,7 +14,7 @@ const reviewSchema = new Schema<UserReviewType>({
   date: { type: String, required: true, trim: true },
   productId: { type: String, required: true, trim: true },
   categoryName: { type: String, required: true, trim: true },
-  retting: { type: Number, default:0, trim: true },
+  retting: { type: Number, default: 0, trim: true },
 });
 
 const contactSchema = new Schema<UserContactType>({
@@ -31,6 +35,10 @@ const RefundSchema = new Schema<UserReturnRequestType>({
   productName: { type: String, trim: true },
   date: { type: String, trim: true },
 });
+
 export const Reviews = model<UserReviewType>("Reviews", reviewSchema);
 export const ContactInfo = model<UserContactType>("ContactInfo", contactSchema);
-export const RefundInfo = model<UserReturnRequestType>("RefundInfo", RefundSchema);
+export const RefundInfo = model<UserReturnRequestType>(
+  "RefundInfo",
+  RefundSchema
+);
