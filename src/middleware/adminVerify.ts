@@ -1,28 +1,42 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import { User } from '../app/modules/user/user.model';
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+
+import { User } from "../app/modules/user/user.model";
 
 const adminVerify = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { authorization } = req.headers;
     if (!authorization) {
-      return res.status(403).send({ message: "JWT Authorization Header Missing" });
+      return res
+        .status(401)
+        .send({ message: "JWT Authorization Header Missing" });
     }
-    const token = authorization.split(" ")[1];
-    const decoded = await jwt.verify(token, `${process.env.JWT_SECRET}`) as { email: string };
+
+    const parts = authorization.split(" ");
+    if (parts.length !== 2 || parts[0] !== "Bearer") {
+      return res
+        .status(401)
+        .send({ message: "Invalid JWT Authorization Header Format" });
+    }
+
+    const token = parts[1];
+    const decoded = (await jwt.verify(token, `${process.env.JWT_SECRET}`)) as {
+      email: string;
+    };
     const { email } = decoded;
     const validAdmin = await User.findOne({ email });
-   
-    if (!validAdmin) {
-        return res.status(403).send({ message: "JWT Authorization Header Missing" });
-      }
-    if (email === req.query.email && validAdmin?.role === "admin") {
+
+    if (!validAdmin || validAdmin.role !== "admin") {
+      return res.status(403).send({ message: "User is not an admin" });
+    }
+
+    if (email === req.query.email) {
       next();
     } else {
-      return res.status(403).send({ message: "Unauthorized" });
+      return res.status(401).send({ message: "Unauthorized" });
     }
   } catch (err) {
-    return next("Private Api");
+    return next("Error verifying JWT token");
   }
 };
 

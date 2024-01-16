@@ -1,29 +1,50 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 
-export function getFilterData(products:any,last7Days:any,currentDate:any) {
-    const last7DaysData = products.filter((item:any) => {
-        const orderDate = moment(item.orderDate, "MM/DD/YY h:mm a");
-        return orderDate.isBetween(last7Days, currentDate, "day", "[]"); // Include both start and end dates
-      });
+/**
+ * Filters products that were ordered within the last 7 days.
+ * @param {Array} products - The products to filter.
+ * @param {Moment} last7Days - The start date of the period to filter.
+ * @param {Moment} currentDate - The end date of the period to filter.
+ * @return {Array} The filtered products.
+ */
 
-      return last7DaysData
+export function getFilterData(
+  products: any[],
+  last7Days: Moment,
+  currentDate: Moment
+) {
+  const last7DaysData = products.filter((item: any) => {
+    const orderDate = moment(item.orderDate, "DD/MM/YY h:mm a");
+    return orderDate.isBetween(last7Days, currentDate, "day", "[]"); // Include both start and end dates
+  });
+
+  return last7DaysData;
 }
 
+/**
+ * Calculates the total number of sold items.
+ * @param {Array} todayData - The products sold today.
+ * @return {number} The total number of sold items.
+ */
 
-export function getSellsItems(todayData: any) {
-    const sellsItems = todayData.reduce((sum: number, product: any) => {
-        return sum + product.totalCard;
-    }, 0);
+export function getSellsItems(todayData: any[]) {
+  const sellsItems = todayData.reduce((sum: number, product: any) => {
+    return sum + product.totalCard;
+  }, 0);
 
-    return sellsItems;
+  return sellsItems;
 }
 
-export function getSells(todayData: any) {
-    const sells = todayData.reduce((sum: number, product: any) => {
-        return sum + product.price * product.totalCard;
-    }, 0);
+/**
+ * Calculates the total sales.
+ * @param {Array} todayData - The products sold today.
+ * @return {number} The total sales.
+ */
 
-    return sells; // Added return statement
+export function getSells(todayData: any[]) {
+  const sells = todayData.reduce((sum: number, product: any) => {
+    return sum + product.price * product.totalCard;
+  }, 0);
+
+  return sells;
 }
-
-
